@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useContext } from "react";
-import { AuthorContext } from "@/components/AuthorContext.jsx";
+import { AuthorContext } from "@/utils/AuthorContext.jsx";
 
 export default function NewPostForm() {
   //-----------------------------------------------------------------Use Author Context
@@ -9,7 +9,7 @@ export default function NewPostForm() {
   //-----------------------------------------------Post State
   const [isCategoryValid, setIsCategoryValid] = useState(false); //make sure a category is selected
   const [post, setPost] = useState({
-    author_id: author.author_id,
+    author_id: "",
     title: "",
     content: "",
     category_id: "",
@@ -37,7 +37,7 @@ export default function NewPostForm() {
         hidden
         id="author_id"
         name="author_id"
-        value={post.author_id}
+        value={author.author_id}
         readOnly
       />
       <div className="title">

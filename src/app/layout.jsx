@@ -1,4 +1,4 @@
-import { AuthorProvider } from "@/components/AuthorContext";
+import { AuthorProvider } from "@/utils/AuthorContext";
 
 export const metadata = {
   title: "Generic Recipe platform II",
