@@ -24,7 +24,7 @@ export default async function LoginPage() {
 
     //revalidate path and send user to /posts
     revalidatePath("/posts");
-    redirect(`/posts?author=${author_name}`);
+    redirect(`/posts?author=${author_name}&isLogin=true`);
   }
 
   return (

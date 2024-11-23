@@ -35,7 +35,7 @@ export default function LoginForm({ Authors }) {
         maxLength={20}
         required
       />
-      <button type="submit">Submit!</button>
+      <button type="submit">LOGIN</button>
     </>
   );
 }

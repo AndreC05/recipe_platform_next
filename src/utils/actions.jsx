@@ -32,6 +32,12 @@ ORDER BY recipe_posts.id DESC;`);
   return posts;
 }
 
+//--------------------------------------------------Update Post
+
+export async function UpdatePost(post) {
+  db.query(``);
+}
+
 //------------------------------------------------------------HandleLikeBtn
 
 export async function handleLikeBtn(post) {
@@ -45,14 +51,11 @@ export async function handleCommentBtn(post) {
 
 //------------------------------------------------------------HandleEditBtn
 export async function handleEditBtn(post) {
-  redirect(`/posts/${post.id}/edit`);
+  redirect(`/posts/edit?post_id=${post.id}`);
 }
 
 //------------------------------------------------------------HandleDeleteBtn
 export async function handleDeleteBtn(post, author) {
-  console.log("Received post object:", post);
-  console.log("Received author_name:", author);
-  console.log("Deleting post with author:", post.author);
   if (author === post.author) {
     db.query(`DELETE FROM recipe_posts WHERE id = ${post.id}`);
   }

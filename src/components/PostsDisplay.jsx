@@ -19,12 +19,13 @@ export default function PostsDisplay() {
   const searchParams = useSearchParams();
 
   //-----------------------------------------------------------Update author Context with new author id and Sort Posts
-  let { author, setAuthor } = useContext(AuthorContext);
+  let { author, setAuthor, setIsLogin } = useContext(AuthorContext);
 
   useEffect(() => {
     async function fetchData() {
       const result = await FetchPosts();
       setPostsArray(result);
+      //Update author and isLogin Context
 
       let authorName = searchParams.get("author");
 
@@ -40,6 +41,16 @@ export default function PostsDisplay() {
         setAuthor((prevState) => ({ ...prevState, author_id: id }));
       }
 
+      //Update isLogin
+      const isLogin = searchParams.get("isLogin");
+      console.log("isLogin SEARCH PARAM", isLogin);
+
+      if (isLogin == "true") {
+        setIsLogin(true);
+      }
+
+      //Sort posts
+
       const sort = searchParams.get("sort");
       setPostsArray((prevState) => {
         const sortedPosts = [...prevState];
@@ -52,7 +63,7 @@ export default function PostsDisplay() {
       });
     }
     fetchData();
-  }, [setAuthor, searchParams]);
+  }, [setAuthor, setIsLogin, searchParams]);
 
   //-------------------------------------------------------------Update Like Display
   const handleLike = async (post) => {
@@ -92,15 +103,19 @@ export default function PostsDisplay() {
           <button onClick={() => handleCommentBtn(post)} id="commentBtn">
             Comment
           </button>
-          <button onClick={() => handleEditBtn(post)} id="editBtn">
-            Edit
-          </button>
-          <button
-            onClick={() => handleDelete(post, author.author_name)}
-            id="deleteBtn"
-          >
-            Delete
-          </button>
+          {String(post.author) === String(author.author_name) && (
+            <button onClick={() => handleEditBtn(post)} id="editBtn">
+              Edit
+            </button>
+          )}
+          {String(post.author) === String(author.author_name) && (
+            <button
+              onClick={() => handleDelete(post, author.author_name)}
+              id="deleteBtn"
+            >
+              Delete
+            </button>
+          )}
         </div>
       ))}
     </>
