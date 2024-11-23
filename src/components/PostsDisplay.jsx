@@ -10,41 +10,53 @@ import {
   handleEditBtn,
   handleLikeBtn,
 } from "@/utils/actions";
+import { FetchPosts, FindAuthorId } from "@/utils/actions";
 
-export default function PostsDisplay({ posts, id }) {
-  const [postsArray, setPostsArray] = useState(posts); // Local state for posts
+export default function PostsDisplay() {
+  const [postsArray, setPostsArray] = useState([]); // Local state for posts
 
   //------------------------------------------------------------SearchParams
   const searchParams = useSearchParams();
 
-  //-----------------------------------------------------------Update author Context with new author id
-  //TODO Fix This (no longer setting author_id to local storage)
+  //-----------------------------------------------------------Update author Context with new author id and Sort Posts
   let { author, setAuthor } = useContext(AuthorContext);
 
   useEffect(() => {
-    if (id) {
-      setAuthor((prevState) => ({ ...prevState, author_id: id }));
-    }
-  }, [id, setAuthor]);
+    async function fetchData() {
+      const result = await FetchPosts();
+      setPostsArray(result);
 
-  //------------------------------------------------------------Sort Posts
+      let authorName = searchParams.get("author");
 
-  useEffect(() => {
-    const sort = searchParams.get("sort");
-    setPostsArray((prevState) => {
-      const sortedPosts = [...prevState];
-      if (sort === "asc") {
-        sortedPosts.sort((a, b) => a.id - b.id);
-      } else if (sort === "desc") {
-        sortedPosts.sort((a, b) => b.id - a.id);
+      if (authorName) {
+        const id = await FindAuthorId(authorName);
+        setAuthor((prevState) => ({ ...prevState, author_id: id }));
+      } else {
+        const authorData = JSON.parse(localStorage.getItem("author"));
+
+        authorName = authorData.author_name;
+
+        const id = await FindAuthorId(authorName);
+        setAuthor((prevState) => ({ ...prevState, author_id: id }));
       }
-      return sortedPosts;
-    });
-  }, [searchParams]);
+
+      const sort = searchParams.get("sort");
+      setPostsArray((prevState) => {
+        const sortedPosts = [...prevState];
+        if (sort === "asc") {
+          sortedPosts.sort((a, b) => a.id - b.id);
+        } else if (sort === "desc") {
+          sortedPosts.sort((a, b) => b.id - a.id);
+        }
+        return sortedPosts;
+      });
+    }
+    fetchData();
+  }, [setAuthor, searchParams]);
 
   //-------------------------------------------------------------Update Like Display
   const handleLike = async (post) => {
-    await handleLikeBtn(post); // Server action
+    await handleLikeBtn(post);
     // Update the likes count
     setPostsArray((prevState) =>
       prevState.map((prev) =>
