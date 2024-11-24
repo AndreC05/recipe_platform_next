@@ -1,9 +1,10 @@
 "use client";
 
-import { handleLikeBtn } from "@/utils/actions";
+import { handleAddCommentBtn, handleLikeBtn } from "@/utils/actions";
 import { useState } from "react";
+import CommentsDisplay from "./CommentsDisplay";
 
-export default function PostAndCommentsDisplay({ postData }) {
+export default function PostAndCommentsDisplay({ postData, commentsData }) {
   const [postObj, setPostObj] = useState(postData);
 
   //-------------------------------------------------------------Handle Like Btn and  Update Like Display
@@ -24,9 +25,16 @@ export default function PostAndCommentsDisplay({ postData }) {
       <p id="contentDisplay">{postObj.content}</p>
       <h4 id="dateDisplay">Date: {postObj.post_date}</h4>
       <p id="likesDisplay">Likes: {postObj.likes}</p>
+
       <button onClick={() => handleLike(postObj)} id="likeBtn">
         Like
       </button>
+      <button onClick={() => handleAddCommentBtn(postObj)} id="AddCommentBtn">
+        Add Comment
+      </button>
+
+      <h3>Comments:</h3>
+      <CommentsDisplay commentsData={commentsData} postObj={postObj} />
     </>
   );
 }

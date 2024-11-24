@@ -43,7 +43,6 @@ export default function PostsDisplay() {
 
       //Update isLogin
       const isLogin = searchParams.get("isLogin");
-      console.log("isLogin SEARCH PARAM", isLogin);
 
       if (isLogin == "true") {
         setIsLogin(true);

@@ -20,7 +20,6 @@ export function AuthorProvider({ children }) {
 
     const savedAuthor = JSON.parse(localStorage.getItem("author"));
     if (savedAuthor) {
-      console.log("savedAuthor was:", savedAuthor);
       setAuthor(savedAuthor);
     }
     if (savedAuthor) {

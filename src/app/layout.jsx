@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import { AuthorProvider } from "@/utils/AuthorContext";
 
 export const metadata = {
@@ -9,7 +10,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <AuthorProvider>
-        <body>{children}</body>
+        <body>
+          <Header />
+          {children}
+        </body>
       </AuthorProvider>
     </html>
   );
