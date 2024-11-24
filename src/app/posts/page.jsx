@@ -1,4 +1,5 @@
 //page with all the posts
+export const dynamic = "force-dynamic";
 
 import PostsDisplay from "@/components/PostsDisplay";
 import { Suspense } from "react";
