@@ -1,12 +1,11 @@
 //Page for users to login
-"use server";
+export const dynamic = "force-dynamic"; // Vercel Fix
+
 import { db } from "@/utils/utilities";
 import LoginForm from "@/components/LoginForm";
 import { FetchAuthors } from "@/utils/actions";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-
-export const dynamic = "force-dynamic"; // Vercel Fix
 
 export default async function LoginPage() {
   //-----------------------------------------------Fetch all authors
