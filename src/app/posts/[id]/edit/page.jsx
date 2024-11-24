@@ -4,6 +4,7 @@ import { db } from "@/utils/utilities";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import UpdateCommentForm from "@/components/UpdateCommentForm";
+import { Suspense } from "react";
 
 export default async function PostsEditPage() {
   async function handleSubmit(formData) {
@@ -24,7 +25,9 @@ export default async function PostsEditPage() {
 
   return (
     <form action={handleSubmit}>
-      <UpdateCommentForm />
+      <Suspense fallback={<p>Loading form...</p>}>
+        <UpdateCommentForm />
+      </Suspense>
     </form>
   );
 }

@@ -3,6 +3,7 @@ import NewPostForm from "@/components/NewPostForm";
 import { db } from "@/utils/utilities";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { Suspense } from "react";
 
 export default async function NewPost() {
   //----------------------------------------------Submit Data
@@ -25,7 +26,9 @@ export default async function NewPost() {
 
   return (
     <form action={handleSubmit} className="userForm">
-      <NewPostForm />
+      <Suspense fallback={<p>Loading form...</p>}>
+        <NewPostForm />
+      </Suspense>
     </form>
   );
 }

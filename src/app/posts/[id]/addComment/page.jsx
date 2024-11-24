@@ -4,6 +4,7 @@ import { db } from "@/utils/utilities";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import NewCommentForm from "@/components/NewCommentForm";
+import { Suspense } from "react";
 
 export default async function NewComment() {
   //----------------------------------------------Submit Data
@@ -25,7 +26,9 @@ export default async function NewComment() {
 
   return (
     <form action={handleSubmit} className="userForm">
-      <NewCommentForm />
+      <Suspense fallback={<p>Loading form...</p>}>
+        <NewCommentForm />
+      </Suspense>
     </form>
   );
 }
