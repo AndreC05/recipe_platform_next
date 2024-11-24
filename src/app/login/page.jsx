@@ -6,6 +6,8 @@ import { FetchAuthors } from "@/utils/actions";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
+export const dynamic = "force-dynamic"; // Vercel Fix
+
 export default async function LoginPage() {
   //-----------------------------------------------Fetch all authors
   const Authors = await FetchAuthors();
