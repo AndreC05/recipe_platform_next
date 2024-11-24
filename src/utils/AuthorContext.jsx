@@ -11,15 +11,24 @@ export function AuthorProvider({ children }) {
 
   useEffect(() => {
     // Get stored author data from localStorage if available
-    const savedAuthor = localStorage.getItem("author");
-    if (savedAuthor) {
-      setAuthor(JSON.parse(savedAuthor));
-      setIsLogin(true);
-    }
     const isLogin = JSON.parse(localStorage.getItem("isLogin"));
-    console.log("isLogin state before storing", isLogin);
     if (isLogin == "true") {
       setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+
+    const savedAuthor = JSON.parse(localStorage.getItem("author"));
+    if (savedAuthor) {
+      console.log("savedAuthor was:", savedAuthor);
+      setAuthor(savedAuthor);
+    }
+    if (savedAuthor) {
+      const savedAuthorName = savedAuthor.author_name;
+
+      if (savedAuthorName) {
+        setIsLogin(true);
+      }
     }
   }, []);
 
