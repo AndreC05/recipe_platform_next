@@ -1,1 +1,14 @@
+body {
+  background-color: cornflowerblue;
+  color: antiquewhite;
+}
 
+button {
+  background-color: coral;
+  color: antiquewhite;
+  border-radius: 2rem;
+  border: 2px solid rgb(27, 88, 60);
+}
+a {
+  color: rgb(27, 88, 60);
+}
